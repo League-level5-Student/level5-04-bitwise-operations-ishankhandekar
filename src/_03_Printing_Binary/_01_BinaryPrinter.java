@@ -8,16 +8,16 @@ public class _01_BinaryPrinter {
      */
 
 
-    public void printByteBinary(byte b) {
+    public static void printByteBinary(byte b) {
         // We first want to print the bit in the one's place
-
+    	
         // Shift b seven bits to the right
-
+    	b = (byte) (b >> 7);
         // Use the & operator to "mask" the bit in the one's place
         // This can be done by "anding" (&) it with the value of 1
-
+    	b = (byte) (b & 1);
         // Print the result using System.out.print (NOT System.out.println)
-
+    	System.out.println(b);
         //Use this method to print the remaining 7 bits of b
     }
 
@@ -49,5 +49,6 @@ public class _01_BinaryPrinter {
 
     public static void main(String[] args) {
         // Test your methods here
+    	printByteBinary((byte)0b10101011);
     }
 }
