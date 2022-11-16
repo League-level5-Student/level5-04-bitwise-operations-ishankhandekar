@@ -55,6 +55,16 @@ public class LightSwitches implements GameControlScene {
      * index = 6        // return true if pink is on (bit 6 == 1)
      */
     boolean isLightOn(int index) {
+    	byte bLightsOnOff = (byte) lightsOnOff;
+    
+        	byte temp = bLightsOnOff;
+        		temp = (byte) (bLightsOnOff >> index);
+            	temp = (byte) (temp & 1);
+            	if (temp == 1) {
+					return true;
+				}
+            	
+    		
         return false;
     }
     
@@ -63,7 +73,11 @@ public class LightSwitches implements GameControlScene {
      * index = 4        // turn off yellow only (set bit 4 = 1)
      */
     void turnLightOn(int index) {
+    	byte bLightsOnOff = (byte) lightsOnOff;
         
+    	byte temp = bLightsOnOff;
+    		temp = (byte) (bLightsOnOff >> index);
+        	temp = (byte) (temp & 1);
     }
     
     /*
@@ -166,6 +180,7 @@ public class LightSwitches implements GameControlScene {
         gameFrame.setSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
         gameFrame.setScene(this);
         gameFrame.start();
+        System.out.println(isLightOn(6));
         
         workQueue = new ArrayDeque<Runnable>();
         
