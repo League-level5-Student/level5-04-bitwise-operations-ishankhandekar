@@ -48,7 +48,7 @@ public class LightSwitches implements GameControlScene {
             };
 
     // 8-bit bitmap. Leave as int so methods won't have to cast to a byte
-    int lightsOnOff = 0;
+    byte lightsOnOff = (byte)0;
 
     /*
      * This method should check if the specified light is on, example:
@@ -73,11 +73,8 @@ public class LightSwitches implements GameControlScene {
      * index = 4        // turn off yellow only (set bit 4 = 1)
      */
     void turnLightOn(int index) {
-    	byte bLightsOnOff = (byte) lightsOnOff;
-        
-    	byte temp = bLightsOnOff;
-    		temp = (byte) (bLightsOnOff >> index);
-        	temp = (byte) (temp & 1);
+    		byte temp = (byte) (1 << index);
+        	lightsOnOff = (byte) (temp | lightsOnOff);
     }
     
     /*
@@ -85,7 +82,8 @@ public class LightSwitches implements GameControlScene {
      * index = 0        // turn off blue only (set bit 0 = 0)
      */
     void turnLightOff(int index) {
-        
+    	byte temp = (byte) (1 << index);
+    	lightsOnOff = (byte) (~temp & lightsOnOff);
     }
     
     /*
@@ -93,7 +91,7 @@ public class LightSwitches implements GameControlScene {
      * lightsBitmap = 0b01100110  // lights 1, 2, 5, 6 on
      */
     void turnMultiLightsOn(int lightsBitmap) {
-        
+        lightsOnOff = (byte) (lightsBitmap | lightsOnOff);
     }
     
     /*
@@ -101,7 +99,7 @@ public class LightSwitches implements GameControlScene {
      * lightsBitmap = 0b10000001  // lights 0, 7 off
      */
     void turnMultiLightsOff(int lightsBitmap) {
-        
+    	lightsOnOff = (byte) (~lightsBitmap & lightsOnOff);
     }
     
     /*
@@ -114,7 +112,7 @@ public class LightSwitches implements GameControlScene {
      *                               orange(3) and yellow(4) on
      */
     void toggleLights(int lightsBitmap) {
-        
+    	lightsOnOff = (byte) (lightsBitmap ^ lightsOnOff);
     }
     
     void runLightSequence1() {
